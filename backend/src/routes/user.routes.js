@@ -26,6 +26,7 @@ async function AuthValidator(req, res, next) {
   next();
 }
 
+router.get("/test", userController.test);
 router.post("/login", userController.login);
 router.post("/register", userController.userRegister);
 router.get("/fetchData", AuthValidator, userController.fetchData);

@@ -8,7 +8,7 @@ import Footer from "./routes/Footer/Footer";
 import Card from "./routes/Card/Card";
 import Signup from "./routes/Signup/Signup";
 import Signin from "./routes/Signin/Signin";
-import ResetPassword from './routes/Signin/ResetPassword'
+import ResetPassword from "./routes/Signin/ResetPassword";
 import ContactUs from "./routes/ContactUs/ContactUs";
 import AboutUs from "./routes/AboutUs/AboutUs";
 import Error from "./routes/ErrorPage/Error";
@@ -17,8 +17,6 @@ import Users from "./routes/UserData/Users";
 import ViewUserData from "./routes/UserData/ViewUserData";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
 import ViewUserDetails from "./routes/UserData/ViewUserDatails";
-
-
 
 const App = () => {
   return (
@@ -32,7 +30,7 @@ const App = () => {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/forgotPassword" element={<ForgotPassword/>} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/viewUserData" element={<ViewUserData />} />

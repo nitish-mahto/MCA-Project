@@ -41,15 +41,35 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+
 /**
  * @swagger
  * /:
  *  get:
- *    summary: This API
- *    description: Hello World
+ *    summary: This API is used to check for the API is working or not
+ *    description: This API is used to check if get method is working or not
  *    responses:
- *          200:
- *              description: To test Get API documentation
+ *         200:
+ *            description: To test Get Method
+ * 
+ */
+
+/**
+ * @swagger
+ * /getData:
+ *  get:
+ *    summary: This API is used to check for the API is working or not
+ *    description: This API is used to check if get method is working or not
+ *    responses:
+ *         200:
+ *            description: To test Get Method
+ *            content:
+ *                application/json:
+ *                  schema:
+ *                      type: array
+ *                      user:
+ *                          $ref: '#component/schema/getData'
+ *
  */
 
 app.get("/", (req, res) => {

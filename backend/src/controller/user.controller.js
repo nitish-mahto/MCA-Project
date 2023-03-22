@@ -538,7 +538,14 @@ async function loginData(req, res) {
   });
 }
 
+async function test(req, res) {
+  return res.status(200).send({
+    message: "This is a test API",
+  });
+}
+
 module.exports = {
+  test,
   login,
   userRegister,
   fetchData,
