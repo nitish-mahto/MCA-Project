@@ -116,6 +116,10 @@ async function userRegister(req, res) {
         "string.max": "password should have a maximum length of 16",
         "any.required": "password is a required field",
       }),
+      role: Joi.string().required().messages({
+        "string.empty": "password cannot be an empty field",
+        "any.required": "password is a required field",
+      }),
     });
 
     const { value, error } = schema.validate(req.body);

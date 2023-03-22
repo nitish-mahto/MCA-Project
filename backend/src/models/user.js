@@ -33,7 +33,6 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
       trim: true,
-      default: 'user'
     }
   },
   { timestamp: true }

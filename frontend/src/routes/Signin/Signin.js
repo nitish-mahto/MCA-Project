@@ -108,7 +108,7 @@ const Signin = () => {
           </div>
         </div>
         <p class="credit">
-          Don't have an Account? <Link to="/signup">Signup</Link>
+          Don't have an Account? <Link to="/UserSignup">Signup</Link>
         </p>
       </div>
       <div>

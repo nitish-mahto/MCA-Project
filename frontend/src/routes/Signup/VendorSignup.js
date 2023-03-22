@@ -51,7 +51,7 @@ const schema = yup
   })
   .required();
 
-const Signup = () => {
+const VendorSignup = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -70,12 +70,14 @@ const Signup = () => {
         password: data.password,
         email: data.email,
         username: data.username,
+        role: "vendor",
       })
       .then((value) => {
-        alert("Register successful");
+        alert("Vendor Register successful");
         navigate("/signin");
       })
       .catch((err) => {
+        console.log("Error : " + err.message);
         alert("Error : ", +err.message);
       });
   };
@@ -90,7 +92,7 @@ const Signup = () => {
         <div class="form_wrapper">
           <div class="form_container">
             <div class="title_container">
-              <h2>Signup Form</h2>
+              <h2>Vendor Signup Form</h2>
             </div>
             <div class="row clearfix">
               <div class="">
@@ -225,4 +227,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default VendorSignup;

@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import Products from "./components/Products";
 import Footer from "./routes/Footer/Footer";
 import Card from "./routes/Card/Card";
-import Signup from "./routes/Signup/Signup";
+// import Signup from "./routes/Signup/UserSignup";
 import Signin from "./routes/Signin/Signin";
 import ResetPassword from "./routes/Signin/ResetPassword";
 import ContactUs from "./routes/ContactUs/ContactUs";
@@ -17,6 +17,8 @@ import Users from "./routes/UserData/Users";
 import ViewUserData from "./routes/UserData/ViewUserData";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
 import ViewUserDetails from "./routes/UserData/ViewUserDatails";
+import VendorSignup from "./routes/Signup/VendorSignup";
+import UserSignup from "./routes/Signup/UserSignup";
 
 const App = () => {
   return (
@@ -29,9 +31,10 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/venderSignup" element={<VendorSignup />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/userSignup" element={<UserSignup />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/viewUserData" element={<ViewUserData />} />
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
