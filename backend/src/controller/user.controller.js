@@ -17,9 +17,13 @@ async function login(req, res) {
    */
 
   try {
-    // check email id exists in the schema or not...
     let user = await User.findOne({
-      $or: [{ email: req.body.username }, { username: req.body.username }],
+      $and: [
+        {
+          $or: [{ email: req.body.username }, { username: req.body.username }],
+        },
+        { type: req.body.type },
+      ],
     })
       .lean()
       .exec();
@@ -51,7 +55,11 @@ async function login(req, res) {
 
     const { token } = await generateJWT(user);
 
-    res.status(200).send({ status: "success", token: token });
+    res.status(200).send({
+      status: "success",
+      message: "user login Successful",
+      token: token,
+    });
   } catch (error) {
     res.status(401).send({ message: error.message });
   }
@@ -116,9 +124,9 @@ async function userRegister(req, res) {
         "string.max": "password should have a maximum length of 16",
         "any.required": "password is a required field",
       }),
-      role: Joi.string().required().messages({
-        "string.empty": "password cannot be an empty field",
-        "any.required": "password is a required field",
+      type: Joi.string().required().messages({
+        "string.empty": "type cannot be an empty field",
+        "any.required": "type is a required field",
       }),
     });
 
@@ -129,15 +137,19 @@ async function userRegister(req, res) {
     }
 
     let user = await User.findOne({
-      $or: [{ email: req.body.email }, { username: req.body.username }],
-    })
-      .lean()
-      .exec();
+      $and: [
+        {
+          $or: [{ email: req.body.username }, { username: req.body.username }],
+        },
+        { type: req.body.type },
+      ],
+    });
 
     if (user) {
-      return res
-        .status(400)
-        .send({ status: "error", message: "Email or Username already exists" });
+      return res.status(400).send({
+        status: "error",
+        message: "Email or Username already exists",
+      });
     }
 
     let newUser = new User(value);
@@ -147,6 +159,7 @@ async function userRegister(req, res) {
       .select({
         first_name: 1,
         last_name: 1,
+        type: 1,
       })
       .lean()
       .exec();

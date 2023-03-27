@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
       require: true,
       trim: true,
     },
-    role:{
+    type:{
       type: String,
       require: true,
       trim: true,

@@ -6,19 +6,20 @@ import Home from "./components/Home";
 import Products from "./components/Products";
 import Footer from "./routes/Footer/Footer";
 import Card from "./routes/Card/Card";
-// import Signup from "./routes/Signup/UserSignup";
-import Signin from "./routes/Signin/Signin";
 import ResetPassword from "./routes/Signin/ResetPassword";
 import ContactUs from "./routes/ContactUs/ContactUs";
 import AboutUs from "./routes/AboutUs/AboutUs";
 import Error from "./routes/ErrorPage/Error";
 import ForgotPassword from "./routes/Signin/ForgotPassword";
-import Users from "./routes/UserData/Users";
-import ViewUserData from "./routes/UserData/ViewUserData";
+import Users from "./routes/Admin/UserData/Users";
+import ViewUserData from "./routes/Admin/UserData/ViewUserData";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
-import ViewUserDetails from "./routes/UserData/ViewUserDatails";
-import VendorSignup from "./routes/Signup/VendorSignup";
+import ViewUserDetails from "./routes/Admin/UserData/ViewUserDatails";
+import VendorSignup from "./routes/Vendor/VendorSignup";
 import UserSignup from "./routes/Signup/UserSignup";
+import VendorSignin from "./routes/Vendor/VendorSignin";
+import UserSignin from "./routes/Signin/UserSignin";
+import Dashboard from "./routes/Admin/Dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -30,17 +31,21 @@ const App = () => {
           <Route path="/card" element={<Card />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/venderSignup" element={<VendorSignup />} />
+          <Route path="/userSignin" element={<UserSignin />} />
+          <Route path="/userSignup" element={<UserSignup />} />
+          <Route path="/vendorSignin" element={<VendorSignin />} />
+          <Route path="/vendorSignup" element={<VendorSignup />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/userSignup" element={<UserSignup />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/viewUserData" element={<ViewUserData />} />
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
           <Route path="/userData" element={<Users />} />
           <Route path="/changeEmail" element={<ChangeEmail />} />
           <Route path="*" element={<Error />} />
+
+
+          <Route path="/adminDashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>

@@ -61,13 +61,40 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/signin" className="fa fa-user-circle">
-                &nbsp;&nbsp;Login
-              </Link>
+              <div className="fa fa-user-circle1">
+                {/* &nbsp;&nbsp;Login */}
+                <div class="dropdown">
+                  <button
+                    class="btn btn-primary dropdown-toggle login-btn"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{ color: "white", backgroundColor: "#063970"}}
+                  >
+                    Login
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="/userSignin">
+                        User
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="/vendorSignin">
+                        Vendor
+                      </Link>
+                    </li>
+                  </ul>
 
-              <Link to="/#" className="fa fa-shopping-cart">
-                &nbsp;&nbsp;Cart
-              </Link>
+                  <Link to="/#" className="fa fa-shopping-cart">
+                    &nbsp;&nbsp;Cart
+                  </Link>
+                </div>
+              </div>
             </>
           )}
         </div>

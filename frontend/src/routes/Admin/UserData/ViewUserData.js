@@ -45,6 +45,7 @@ const ViewUserData = () => {
               <th scope="col">Last</th>
               <th scope="col">Email</th>
               <th scope="col">Username</th>
+              <th scope="col">Type</th>
               <th scope="col">Event</th>
             </tr>
           </thead>
@@ -56,6 +57,7 @@ const ViewUserData = () => {
                 <td>{User.last_name}</td>
                 <td>{User.email}</td>
                 <td>{User.username}</td>
+                <td>{User.type}</td>
                 <td>
                   <button type="button" class="btn btn-success m-1">
                     <Link

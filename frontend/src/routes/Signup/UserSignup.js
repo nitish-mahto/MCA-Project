@@ -70,15 +70,15 @@ const UserSignup = () => {
         password: data.password,
         email: data.email,
         username: data.username,
-        role: "user",
+        type: "user",
       })
       .then((value) => {
         alert("User Register successful");
-        navigate("/signin");
+        navigate("/userSignin");
       })
       .catch((err) => {
         console.log("Error : " + err.message);
-        alert("Error : ", +err.message);
+        alert(err.response.data.message);
       });
   };
 
@@ -215,7 +215,7 @@ const UserSignup = () => {
           </div>
         </div>
         <p class="credit">
-          Already have an Account? <Link to="/signin">Login</Link>
+          Already have an Account? <Link to="/userSignin">Login</Link>
         </p>
       </div>
 

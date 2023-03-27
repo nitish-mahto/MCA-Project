@@ -64,21 +64,21 @@ const VendorSignup = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:8000/register`, {
+      .post(`http://localhost:8000/vendor/register`, {
         first_name: data.first_name,
         last_name: data.last_name,
         password: data.password,
         email: data.email,
         username: data.username,
-        role: "vendor",
+        type: "vendor",
       })
       .then((value) => {
         alert("Vendor Register successful");
-        navigate("/signin");
+        navigate("/vendorSignin");
       })
       .catch((err) => {
         console.log("Error : " + err.message);
-        alert("Error : ", +err.message);
+        alert(err.response.data.message);
       });
   };
 
@@ -92,7 +92,7 @@ const VendorSignup = () => {
         <div class="form_wrapper">
           <div class="form_container">
             <div class="title_container">
-              <h2>Vendor Signup Form</h2>
+              <h2>Vendor Signup</h2>
             </div>
             <div class="row clearfix">
               <div class="">
@@ -215,7 +215,7 @@ const VendorSignup = () => {
           </div>
         </div>
         <p class="credit">
-          Already have an Account? <Link to="/signin">Login</Link>
+          Already have an Account? <Link to="/VendorSignin">Login</Link>
         </p>
       </div>
 

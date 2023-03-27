@@ -15,7 +15,7 @@ const schema = yup
   })
   .required();
 
-const Signin = () => {
+const UserSignin = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -55,7 +55,7 @@ const Signin = () => {
         <div class="form_wrapper">
           <div class="form_container">
             <div class="title_container">
-              <h2>Login Form</h2>
+              <h2>User Login</h2>
             </div>
             <div class="row clearfix">
               <div class="">
@@ -108,7 +108,7 @@ const Signin = () => {
           </div>
         </div>
         <p class="credit">
-          Don't have an Account? <Link to="/UserSignup">Signup</Link>
+          Don't have an Account? <Link to="/userSignup">Signup</Link>
         </p>
       </div>
       <div>
@@ -118,4 +118,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default UserSignin;

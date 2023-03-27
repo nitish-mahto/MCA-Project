@@ -1,0 +1,12 @@
+db.users.find({$and: [{$or: [{branch: "ECE"}, {joiningYear: 2017}]},{"personal.age": 25}]}]).pretty()
+
+
+let user = await User.findOne({
+    $and: [
+        {$or: [{ email: req.body.username }, { username: req.body.username }]},
+        {email: req.body.username}
+    ]
+  })
+
+
+  
