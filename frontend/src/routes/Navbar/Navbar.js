@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
@@ -8,18 +8,34 @@ const Navbar = () => {
   const [User, SetUser] = useState([]);
   // const [token, setToken] = useState(localStorage.getItem("token"));
   const token = localStorage.getItem("token");
-  axios
-    .get("http://localhost:8000/login-data", {
-      headers: {
-        Authorization: token,
-      },
-    })
-    .then((result) => {
-      SetUser(result.data.data);
-    })
-    .catch((err) => {
-      console.log("Error: " + err);
-    });
+
+  // axios
+  //   .get("http://localhost:8000/admin/login-data", {
+  //     headers: {
+  //       Authorization: token,
+  //     },
+  //   })
+  //   .then((result) => {
+  //     SetUser(result.data.data);
+  //   })
+  //   .catch((err) => {
+  //     console.log("Error: " + err);
+  //   });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/admin/login-data", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((result) => {
+        SetUser(result.data.data);
+      })
+      .catch((err) => {
+        console.log("Error: " + err);
+      });
+  }, []);
 
   const logout = async () => {
     localStorage.removeItem("token");
@@ -70,7 +86,7 @@ const Navbar = () => {
                     id="dropdownMenuButton"
                     data-mdb-toggle="dropdown"
                     aria-expanded="false"
-                    style={{ color: "white", backgroundColor: "#063970"}}
+                    style={{ color: "white", backgroundColor: "#063970" }}
                   >
                     Login
                   </button>

@@ -42,6 +42,7 @@ const App = () => {
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
           <Route path="/userData" element={<Users />} />
           <Route path="/changeEmail" element={<ChangeEmail />} />
+          <Route path="/admin-dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
 
 

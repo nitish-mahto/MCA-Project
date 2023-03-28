@@ -5,17 +5,21 @@ const { generateJWT } = require("../models/token");
 const bcrypt = require("bcrypt");
 
 async function login(req, res) {
+  const { username, email, password, type } = req.body;
   try {
-    let vendor = await User.findOne({
-      $and: [
-        {
-          $or: [{ email: req.body.username }, { username: req.body.username }],
-        },
-        { type: req.body.type },
-      ],
-    })
-      .lean()
-      .exec();
+    let vendor;
+    if (email || username) {
+      vendor = await User.findOne({
+        $and: [
+          {
+            $or: [{ email: username }, { username: username }],
+          },
+          { type: type },
+        ],
+      })
+        .lean()
+        .exec();
+    }
 
     if (!vendor) {
       return res.status(404).json({
@@ -24,7 +28,7 @@ async function login(req, res) {
       });
     }
 
-    const isMatch = await bcrypt.compare(req.body.password, vendor.password);
+    const isMatch = await bcrypt.compare(password, vendor.password);
 
     if (!isMatch) {
       return res.status(404).json({
@@ -43,13 +47,11 @@ async function login(req, res) {
 
     const { token } = await generateJWT(vendor);
 
-    res
-      .status(200)
-      .send({
-        status: "success",
-        message: "Vendor login Successful",
-        token: token,
-      });
+    res.status(200).send({
+      status: "success",
+      message: "Vendor login Successful",
+      token: token,
+    });
   } catch (error) {
     res.status(401).send({ message: error.message });
   }
@@ -116,7 +118,7 @@ async function Register(req, res) {
     let vendor = await User.findOne({
       $and: [
         {
-          $or: [{ email: req.body.username }, { username: req.body.username }],
+          $or: [{ email: req.body.email }, { username: req.body.username }],
         },
         { type: req.body.type },
       ],

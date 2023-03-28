@@ -16,17 +16,22 @@ async function login(req, res) {
    *              description: user found
    */
 
+  const { username, email, password, type } = req.body;
   try {
-    let user = await User.findOne({
-      $and: [
-        {
-          $or: [{ email: req.body.username }, { username: req.body.username }],
-        },
-        { type: req.body.type },
-      ],
-    })
-      .lean()
-      .exec();
+    let user;
+    if (email || username) {
+      // user = await User.findOne({ username: username });
+      user = await User.findOne({
+        $and: [
+          {
+            $or: [{ email: username }, { username: username }],
+          },
+          { type: type },
+        ],
+      })
+        .lean()
+        .exec();
+    }
 
     if (!user) {
       return res.status(404).json({
@@ -36,7 +41,8 @@ async function login(req, res) {
     }
 
     //Compare password with bcrypt
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    // const isMatch = await bcrypt.compare(req.body.password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(404).json({
@@ -139,7 +145,7 @@ async function userRegister(req, res) {
     let user = await User.findOne({
       $and: [
         {
-          $or: [{ email: req.body.username }, { username: req.body.username }],
+          $or: [{ email: req.body.email }, { username: req.body.username }],
         },
         { type: req.body.type },
       ],

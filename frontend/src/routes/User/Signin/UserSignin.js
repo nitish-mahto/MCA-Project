@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../../Navbar/Navbar";
+import Footer from "../../Footer/Footer";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,15 +26,15 @@ const UserSignin = () => {
   });
 
   const onSubmit = (value) => {
-    axios
+    let data = axios
       .post(`http://localhost:8000/login`, {
         // ...value,
         username: value.username,
-        email: value.email,
         password: value.password,
         type: "user",
       })
       .then((result) => {
+        console.log("Value : " + data);
         alert("Login successful");
         localStorage.setItem("token", result.data.token);
         navigate("/");
@@ -42,6 +42,7 @@ const UserSignin = () => {
       .catch((err) => {
         console.log(err);
         alert(err.response.data.message);
+        console.log("Value : " + data);
       });
   };
 
@@ -72,7 +73,7 @@ const UserSignin = () => {
                     <input
                       type="text"
                       {...register("username")}
-                      placeholder="Username"
+                      placeholder="username"
                     />
                   </div>
                   {errors.username && (

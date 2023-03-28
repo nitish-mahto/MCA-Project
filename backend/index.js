@@ -9,7 +9,7 @@ require("./src/models/tokenSchema");
 const DATABASE_URL = process.env.D_URL;
 const userRouter = require("./src/routes/user.routes");
 const vendorRouter = require("./src/routes/vendor.routes");
-// const adminRouter = require("./src/routes/admin.routes");
+const adminRouter = require("./src/routes/admin.routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerJSDoc = require("swagger-jsdoc");
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use("/vendor", vendorRouter);
-// app.use("/admin", adminRouter);
+app.use("/admin", adminRouter);
 app.use("/", userRouter);
 
 // Swagger API..
