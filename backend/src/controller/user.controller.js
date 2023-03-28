@@ -149,7 +149,9 @@ async function userRegister(req, res) {
         },
         { type: req.body.type },
       ],
-    });
+    })
+      .lean()
+      .exec();
 
     if (user) {
       return res.status(400).send({
