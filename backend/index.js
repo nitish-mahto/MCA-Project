@@ -6,6 +6,7 @@ const port = process.env.PORT;
 // const connection = require("./src/db/connection");
 require("./src/db/connection");
 require("./src/models/tokenSchema");
+require("./src/models/categories");
 const DATABASE_URL = process.env.D_URL;
 const userRouter = require("./src/routes/user.routes");
 const vendorRouter = require("./src/routes/vendor.routes");

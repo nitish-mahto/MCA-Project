@@ -49,7 +49,7 @@ const Navbar = () => {
           <Link to="/#">
             {/* <img src="https://www.tutorialrepublic.com/lib/images/logo.svg" alt="..."/> */}
             <img
-              src="https://techreale.com/wp-content/uploads/2022/04/cropped-IMG_5484-768x164.png"
+              src="https://www.techreale.com/assets/images/logos/1.png"
               alt="..."
             />
           </Link>

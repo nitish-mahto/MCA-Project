@@ -1,8 +1,15 @@
 const User = require("../models/user");
 const tokenSchema = require("../models/tokenSchema");
+const category = require("../models/categories");
 const Joi = require("joi");
 const { generateJWT } = require("../models/token");
 const bcrypt = require("bcrypt");
+
+async function test(req, res) {
+  return res.status(200).send({
+    message: "This is a test API (Vendor)",
+  });
+}
 
 async function login(req, res) {
   const { username, email, password, type } = req.body;
@@ -160,14 +167,72 @@ async function Register(req, res) {
   }
 }
 
-async function test(req, res) {
+async function imageUpload(req, res) {
+  // .diskStorage({
+  //   destination: function (req, file, cb) {
+  //     cb(null, "../uploads");
+  //   },
+  //   filename: function (req, file, cb) {
+  //     cb(null, file.fieldname + "-" + Date.now());
+  //   },
+  // })
+  // .single("user_file");
+
   return res.status(200).send({
-    message: "This is a test API (Vendor)",
+    message: "File Upload Success",
   });
 }
 
+async function addCategory(req, res, next) {
+  let categoryName = await category
+    .findOne({ name: req.body.name })
+    .lean()
+    .exec();
+
+  if (categoryName) {
+    return res.status(403).send({
+      status: "error",
+      message: "Category name already exists",
+    });
+  }
+
+  let categoryData = {
+    name: req.body.name,
+    parent: req.body.parent,
+    description: req.body.description,
+  };
+
+  try {
+    let newCategory = new category(categoryData);
+    await newCategory.save();
+
+    newCategory = await category
+      .findOne({ _id: newCategory.id })
+      .select({
+        name: 1,
+        parent: 1,
+        description: 1,
+      })
+      .lean()
+      .exec();
+
+    return res.status(200).send({
+      status: "success",
+      message: "Category Added Successfully",
+      data: newCategory,
+    });
+  } catch (error) {
+    return res.status(403).send({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
+  test,
   login,
   Register,
-  test,
+  imageUpload,
+  addCategory,
 };

@@ -2,6 +2,7 @@ const express = require("express");
 const vendorController = require("../controller/vendor.controller");
 const router = express.Router();
 const Auth = require("../models/token");
+const multer = require("multer");
 
 async function AuthValidator(req, res, next) {
   let authBearer = req.headers["authorization"];
@@ -26,9 +27,21 @@ async function AuthValidator(req, res, next) {
   next();
 }
 
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "uploads");
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + "-" + Date.now() + ".jpg");
+    },
+  }),
+}).single("user_file");
+
 router.get("/test", vendorController.test);
 router.post("/login", vendorController.login);
 router.post("/register", vendorController.Register);
-
+router.post("/addCategory", vendorController.addCategory);
+router.post("/imageUpload", upload, vendorController.imageUpload);
 
 module.exports = router;

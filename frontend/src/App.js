@@ -19,7 +19,7 @@ import VendorSignup from "./routes/Vendor/VendorSignup";
 import UserSignup from "./routes/Signup/UserSignup";
 import VendorSignin from "./routes/Vendor/VendorSignin";
 import UserSignin from "./routes/Signin/UserSignin";
-import Dashboard from "./routes/Admin/Dashboard/Dashboard";
+import Dashboard from "./routes/Admin/Dashboard/Dashboard.js";
 
 const App = () => {
   return (
@@ -42,7 +42,7 @@ const App = () => {
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
           <Route path="/userData" element={<Users />} />
           <Route path="/changeEmail" element={<ChangeEmail />} />
-          <Route path="/admin-dashboard" element={<Dashboard />} />
+          <Route path="/adminDashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
 
 
