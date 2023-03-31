@@ -4,6 +4,7 @@ const category = require("../models/categories");
 const Joi = require("joi");
 const { generateJWT } = require("../models/token");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 
 async function test(req, res) {
   return res.status(200).send({
@@ -168,16 +169,6 @@ async function Register(req, res) {
 }
 
 async function imageUpload(req, res) {
-  // .diskStorage({
-  //   destination: function (req, file, cb) {
-  //     cb(null, "../uploads");
-  //   },
-  //   filename: function (req, file, cb) {
-  //     cb(null, file.fieldname + "-" + Date.now());
-  //   },
-  // })
-  // .single("user_file");
-
   return res.status(200).send({
     message: "File Upload Success",
   });
@@ -189,10 +180,17 @@ async function addCategory(req, res, next) {
     .lean()
     .exec();
 
-  if (categoryName) {
+  const isMatch = await compare(parent, categoryName.parent);
+
+  let categoryParentName = await category
+    .findOne({ parent: req.body.parent })
+    .lean()
+    .exec();
+
+  if (categoryParentName) {
     return res.status(403).send({
       status: "error",
-      message: "Category name already exists",
+      message: "Category already exists in Parent Category",
     });
   }
 

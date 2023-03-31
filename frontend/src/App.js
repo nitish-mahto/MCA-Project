@@ -20,6 +20,7 @@ import UserSignup from "./routes/Signup/UserSignup";
 import VendorSignin from "./routes/Vendor/VendorSignin";
 import UserSignin from "./routes/Signin/UserSignin";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.js";
+import AdminProfile from "./routes/Admin/Dashboard/AdminProfile";
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/userData" element={<Users />} />
           <Route path="/changeEmail" element={<ChangeEmail />} />
           <Route path="/adminDashboard" element={<Dashboard />} />
+          <Route path="/adminProfile" element={<AdminProfile />} />
           <Route path="*" element={<Error />} />
 
 
