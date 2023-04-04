@@ -24,13 +24,14 @@ const Navbar = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/admin/login-data", {
+      .get("http://localhost:8000/user/viewProfile", {
         headers: {
           Authorization: token,
         },
       })
       .then((result) => {
         SetUser(result.data.data);
+        console.log("Result: " + result.data.data);
       })
       .catch((err) => {
         console.log("Error: " + err);

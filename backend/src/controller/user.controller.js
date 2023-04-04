@@ -207,6 +207,25 @@ async function viewProfile(req, res) {
   });
 }
 
+// async function loginData(req, res) {
+//   // console.log(req.user_id);
+//   let user = await User.findOne({ _id: req.user_id }).lean().exec();
+//   if (!user) {
+//     return res.status(404).json({ status: "error", message: "User not found" });
+//   }
+
+//   user = await User.findOne({ _id: user._id })
+//     .select({ first_name: 1, last_name: 1 })
+//     .lean()
+//     .exec();
+
+//   return res.status(200).send({
+//     status: "success",
+//     message: "Your profile",
+//     data: user,
+//   });
+// }
+
 async function updateProfile(req, res) {
   // console.log("req.user_id = " + req.user_id);
 
