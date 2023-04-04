@@ -29,8 +29,7 @@ async function AuthValidator(req, res, next) {
 router.get("/test", userController.test);
 router.post("/login", userController.login);
 router.post("/register", userController.userRegister);
-router.get("/fetchData", AuthValidator, userController.fetchData);
-router.get("/getData", userController.getData);
+router.get("/viewProfile", AuthValidator, userController.viewProfile);
 router.put("/update-profile", AuthValidator, userController.updateProfile);
 router.put("/change-username", AuthValidator, userController.changeUsername);
 router.put("/change-email", AuthValidator, userController.changeEmail);
@@ -43,7 +42,6 @@ router.put(
   AuthValidator,
   userController.editUserData
 );
-router.get("/view-user-details/:userId", userController.viewUserDetails);
 router.get("/login-data/", AuthValidator, userController.loginData);
 
 module.exports = router;

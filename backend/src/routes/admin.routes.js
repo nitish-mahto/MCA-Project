@@ -25,8 +25,12 @@ async function AuthValidator(req, res, next) {
 
   next();
 }
-
 router.get("/test", adminController.test);
 router.post("/login", adminController.login);
+router.get("/viewUserData", adminController.viewUserData);
+router.get("/viewDetails/:Id", adminController.viewDetails);
+router.delete("/deleteData/:Id", adminController.deleteData);
+router.get("/viewVendorData", adminController.viewVendorData);
+
 
 module.exports = router;

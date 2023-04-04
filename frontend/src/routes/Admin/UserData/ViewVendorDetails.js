@@ -14,7 +14,7 @@ const ViewUserDetails = () => {
 
   const loadUser = async (id) => {
     const result = await axios.get(
-      `http://localhost:8000/view-user-details/${id}`
+      `http://localhost:8000/admin/viewDetails/${id}`
     );
     SetUser(result.data.data);
     console.log(result);
@@ -48,6 +48,9 @@ const ViewUserDetails = () => {
                     <td>{User.last_name}</td>
                     <td>{User.email}</td>
                     <td>{User.username}</td>
+                    <td>
+                      <input type="text" value={User.first_name} />
+                    </td>
                     <td>
                       <button type="button" class="btn btn-success">
                         <Link

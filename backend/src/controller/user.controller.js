@@ -188,7 +188,7 @@ async function userRegister(req, res) {
   }
 }
 
-async function fetchData(req, res) {
+async function viewProfile(req, res) {
   // console.log(req.user_id);
   let user = await User.findOne({ _id: req.user_id }).lean().exec();
   if (!user) {
@@ -203,18 +203,6 @@ async function fetchData(req, res) {
   return res.status(200).send({
     status: "success",
     message: "Your profile",
-    data: user,
-  });
-}
-
-async function getData(req, res) {
-  let user = await User.find().lean().exec();
-  if (!user) {
-    return res.status(404).json({ status: "error", message: "User not found" });
-  }
-
-  return res.status(200).send({
-    status: "success",
     data: user,
   });
 }
@@ -528,20 +516,6 @@ async function editUserData(req, res) {
   });
 }
 
-async function viewUserDetails(req, res) {
-  let user = await User.find({ _id: req.params.userId })
-    .select({ first_name: 1, last_name: 1, email: 1, username: 1 })
-    .lean()
-    .exec();
-  if (!user) {
-    return res.status(404).json({ status: "error", message: "User not found" });
-  }
-
-  return res.status(200).send({
-    status: "success",
-    data: user,
-  });
-}
 
 // Login Part
 
@@ -573,8 +547,7 @@ module.exports = {
   test,
   login,
   userRegister,
-  fetchData,
-  getData,
+  viewProfile,
   updateProfile,
   changeUsername,
   changeEmail,
@@ -583,6 +556,5 @@ module.exports = {
   resetPassword,
   deleteUserData,
   editUserData,
-  viewUserDetails,
   loginData,
 };

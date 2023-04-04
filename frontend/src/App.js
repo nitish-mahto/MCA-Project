@@ -14,13 +14,15 @@ import ForgotPassword from "./routes/Signin/ForgotPassword";
 import Users from "./routes/Admin/UserData/Users";
 import ViewUserData from "./routes/Admin/UserData/ViewUserData";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
-import ViewUserDetails from "./routes/Admin/UserData/ViewUserDatails";
+import ViewUserDetails from "./routes/Admin/UserData/ViewUserDetails";
+import ViewVendorDetails from "./routes/Admin/UserData/ViewVendorDetails";
 import VendorSignup from "./routes/Vendor/VendorSignup";
 import UserSignup from "./routes/Signup/UserSignup";
 import VendorSignin from "./routes/Vendor/VendorSignin";
 import UserSignin from "./routes/Signin/UserSignin";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.js";
 import AdminProfile from "./routes/Admin/Dashboard/AdminProfile";
+import ViewVendorData from "./routes/Admin/UserData/ViewVendorData";
 
 const App = () => {
   return (
@@ -40,15 +42,14 @@ const App = () => {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/viewUserData" element={<ViewUserData />} />
+          <Route path="/viewVendorData" element={<ViewVendorData />} />
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
+          <Route path="/viewVendorDetails/:id" element={<ViewVendorDetails />} />
           <Route path="/userData" element={<Users />} />
           <Route path="/changeEmail" element={<ChangeEmail />} />
           <Route path="/adminDashboard" element={<Dashboard />} />
           <Route path="/adminProfile" element={<AdminProfile />} />
           <Route path="*" element={<Error />} />
-
-
-          <Route path="/adminDashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>

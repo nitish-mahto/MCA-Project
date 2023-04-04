@@ -27,7 +27,7 @@ const UserSignin = () => {
 
   const onSubmit = (value) => {
     axios
-      .post(`http://localhost:8000/login`, {
+      .post(`http://localhost:8000/user/login`, {
         // ...value,
         username: value.username,
         email: value.email,

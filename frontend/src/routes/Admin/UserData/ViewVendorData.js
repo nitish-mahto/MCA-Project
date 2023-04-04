@@ -3,8 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../Dashboard/Navbar";
 
-const ViewUserData = () => {
-  const [userData, SetuserData] = useState([]);
+const ViewVendorData = () => {
+  const [vendorData, SetVendorData] = useState([]);
 
   useEffect(() => {
     loadUser();
@@ -12,8 +12,10 @@ const ViewUserData = () => {
 
   const loadUser = async () => {
     // console.log("loadUser called");
-    const result = await axios.get("http://localhost:8000/admin/viewUserData");
-    SetuserData(result.data.data);
+    const result = await axios.get(
+      "http://localhost:8000/admin/viewVendorData"
+    );
+    SetVendorData(result.data.data);
     console.log(result);
   };
 
@@ -21,7 +23,7 @@ const ViewUserData = () => {
     await axios
       .delete("http://localhost:8000/admin/deleteData/" + id)
       .then(() => {
-        alert("User deleted successfully");
+        alert("Vendor deleted successfully");
         loadUser();
       })
       .catch((err) => {
@@ -32,19 +34,19 @@ const ViewUserData = () => {
 
   const [search, setSearch] = useState("");
 
-  const searchItems = userData.filter((User) => {
+  const searchItems = vendorData.filter((Vendor) => {
     if (search === "") {
-      return User;
-    } else if (User.first_name.toLowerCase().includes(search.toLowerCase())) {
-      return User;
-    } else if (User.last_name.toLowerCase().includes(search.toLowerCase())) {
-      return User;
-    } else if (User.email.toLowerCase().includes(search.toLowerCase())) {
-      return User;
-    } else if (User.username.toLowerCase().includes(search.toLowerCase())) {
-      return User;
-    } else if (User.type.toLowerCase().includes(search.toLowerCase())) {
-      return User;
+      return Vendor;
+    } else if (Vendor.first_name.toLowerCase().includes(search.toLowerCase())) {
+      return Vendor;
+    } else if (Vendor.last_name.toLowerCase().includes(search.toLowerCase())) {
+      return Vendor;
+    } else if (Vendor.email.toLowerCase().includes(search.toLowerCase())) {
+      return Vendor;
+    } else if (Vendor.username.toLowerCase().includes(search.toLowerCase())) {
+      return Vendor;
+    } else if (Vendor.type.toLowerCase().includes(search.toLowerCase())) {
+      return Vendor;
     }
   });
 
@@ -63,7 +65,7 @@ const ViewUserData = () => {
               <thead>
                 <tr>
                   <th colSpan="2">
-                    <h2>User's Details</h2>
+                    <h2>Vendor's Details</h2>
                   </th>
                   <th colSpan="2">
                     <input
@@ -86,19 +88,19 @@ const ViewUserData = () => {
                 </tr>
               </thead>
 
-              {searchItems.map((User, index) => (
+              {searchItems.map((Vendor, index) => (
                 <tbody>
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{User.first_name}</td>
-                    <td>{User.last_name}</td>
-                    <td>{User.email}</td>
-                    <td>{User.username}</td>
-                    <td>{User.type}</td>
+                    <td>{Vendor.first_name}</td>
+                    <td>{Vendor.last_name}</td>
+                    <td>{Vendor.email}</td>
+                    <td>{Vendor.username}</td>
+                    <td>{Vendor.type}</td>
                     <td>
                       <button type="button" class="btn btn-success m-1">
                         <Link
-                          to={`/ViewUserDetails/${User._id}`}
+                          to={`/ViewVendorDetails/${Vendor._id}`}
                           style={{ textDecoration: "none", color: "white" }}
                         >
                           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -107,7 +109,7 @@ const ViewUserData = () => {
                       <button type="button" class="btn btn-danger m-1">
                         <Link
                           to=""
-                          onClick={() => deleteUser(User._id)}
+                          onClick={() => deleteUser(Vendor._id)}
                           style={{ textDecoration: "none", color: "white" }}
                         >
                           Delete
@@ -125,4 +127,4 @@ const ViewUserData = () => {
   );
 };
 
-export default ViewUserData;
+export default ViewVendorData;

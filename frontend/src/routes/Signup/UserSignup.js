@@ -64,7 +64,7 @@ const UserSignup = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:8000/register`, {
+      .post(`http://localhost:8000/user/register`, {
         first_name: data.first_name,
         last_name: data.last_name,
         password: data.password,

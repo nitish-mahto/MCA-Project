@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use("/vendor", vendorRouter);
 app.use("/admin", adminRouter);
-app.use("/", userRouter);
+app.use("/user", userRouter);
 
 // Swagger API..
 const options = {

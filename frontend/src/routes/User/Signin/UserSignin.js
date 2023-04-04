@@ -26,8 +26,9 @@ const UserSignin = () => {
   });
 
   const onSubmit = (value) => {
+    console.log(value);
     let data = axios
-      .post(`http://localhost:8000/login`, {
+      .post(`http://localhost:8000/user/login`, {
         // ...value,
         username: value.username,
         password: value.password,

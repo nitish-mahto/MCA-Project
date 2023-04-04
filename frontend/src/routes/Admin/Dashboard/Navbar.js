@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import "./Dashboard.css";
 
 const Navbar = () => {
+  const logout = async () => {
+    localStorage.removeItem("token");
+    alert("Logout Successfully");
+    window.location.href = "/";
+  };
+
   return (
     <>
       <div>
@@ -28,6 +34,13 @@ const Navbar = () => {
             </li>
 
             <li>
+              <Link to="/viewVendorData">
+                <i className="fa fa-users"></i>
+                &nbsp;Vendors
+              </Link>
+            </li>
+
+            <li>
               <Link to="/adminProfile">
                 <i className="fa fa-dashboard"></i>
                 &nbsp;Products
@@ -49,7 +62,7 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Link to="#logout">
+              <Link onClick={() => logout()}>
                 <i className="fa fa-sign-out"></i>
                 &nbsp;Logout
               </Link>
