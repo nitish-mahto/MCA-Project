@@ -38,10 +38,6 @@ const schema = yup
       .min(6, "password must be between 6 and 12 characters")
       .max(12, "password must be between 6 and 12 characters"),
 
-    // .matches(
-    //   "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,12}$",
-    //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    // )
     confirm_password: yup
       .string()
       .required("Confirm Password is required")

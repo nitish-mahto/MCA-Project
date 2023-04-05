@@ -27,10 +27,13 @@ async function AuthValidator(req, res, next) {
 }
 router.get("/test", adminController.test);
 router.post("/login", adminController.login);
+router.post("/forgot-password", adminController.forgotPassword);
+router.post("/reset-password", adminController.resetPassword);
 router.get("/viewUserData", adminController.viewUserData);
 router.get("/viewDetails/:Id", adminController.viewDetails);
 router.delete("/deleteData/:Id", adminController.deleteData);
 router.get("/viewVendorData", adminController.viewVendorData);
-
+router.get("/totalUsers", adminController.totalUsers);
+router.get("/totalVendors", adminController.totalVendors);
 
 module.exports = router;

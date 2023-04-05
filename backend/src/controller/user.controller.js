@@ -4,6 +4,12 @@ const Joi = require("joi");
 const { generateJWT } = require("../models/token");
 const bcrypt = require("bcrypt");
 
+async function test(req, res) {
+  return res.status(200).send({
+    message: "This is a test API",
+  });
+}
+
 async function login(req, res) {
   /**
    * @swagger
@@ -191,6 +197,7 @@ async function userRegister(req, res) {
 async function viewProfile(req, res) {
   // console.log(req.user_id);
   let user = await User.findOne({ _id: req.user_id }).lean().exec();
+
   if (!user) {
     return res.status(404).json({ status: "error", message: "User not found" });
   }
@@ -206,25 +213,6 @@ async function viewProfile(req, res) {
     data: user,
   });
 }
-
-// async function loginData(req, res) {
-//   // console.log(req.user_id);
-//   let user = await User.findOne({ _id: req.user_id }).lean().exec();
-//   if (!user) {
-//     return res.status(404).json({ status: "error", message: "User not found" });
-//   }
-
-//   user = await User.findOne({ _id: user._id })
-//     .select({ first_name: 1, last_name: 1 })
-//     .lean()
-//     .exec();
-
-//   return res.status(200).send({
-//     status: "success",
-//     message: "Your profile",
-//     data: user,
-//   });
-// }
 
 async function updateProfile(req, res) {
   // console.log("req.user_id = " + req.user_id);
@@ -416,6 +404,10 @@ async function forgotPassword(req, res) {
       "string.empty": "email cannot be an empty field",
       "any.required": "email is a required field",
     }),
+    type: Joi.string().required().messages({
+      "string.empty": "type cannot be an empty field",
+      "any.required": "type is a required field",
+    }),
   });
 
   const { error } = schema.validate(req.body);
@@ -425,7 +417,7 @@ async function forgotPassword(req, res) {
   }
 
   let user = await User.findOne({
-    email: req.body.email,
+    $and: [{ email: req.body.email }, { type: req.body.type }],
   })
     .lean()
     .exec();
@@ -535,9 +527,6 @@ async function editUserData(req, res) {
   });
 }
 
-
-// Login Part
-
 async function loginData(req, res) {
   // console.log(req.user_id);
   let user = await User.findOne({ _id: req.user_id }).lean().exec();
@@ -553,12 +542,6 @@ async function loginData(req, res) {
   return res.status(200).send({
     status: "success",
     data: user,
-  });
-}
-
-async function test(req, res) {
-  return res.status(200).send({
-    message: "This is a test API",
   });
 }
 

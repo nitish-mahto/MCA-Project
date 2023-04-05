@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../../Navbar/Navbar";
+import Footer from "../../Footer/Footer";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,7 +15,7 @@ const schema = yup
   })
   .required();
 
-const UserSignin = () => {
+const AdminSignin = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -27,17 +27,16 @@ const UserSignin = () => {
 
   const onSubmit = (value) => {
     axios
-      .post(`http://localhost:8000/user/login`, {
+      .post(`http://localhost:8000/admin/login`, {
         // ...value,
         username: value.username,
         email: value.email,
         password: value.password,
-        type: "user",
       })
       .then((result) => {
         alert("Login successful");
         localStorage.setItem("token", result.data.token);
-        navigate("/");
+        navigate("/adminDashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +58,7 @@ const UserSignin = () => {
         <div class="form_wrapper">
           <div class="form_container">
             <div class="title_container">
-              <h2>User Login</h2>
+              <h2>Admin Login</h2>
             </div>
             <div class="row clearfix">
               <div class="">
@@ -98,7 +97,7 @@ const UserSignin = () => {
 
                   <span>
                     <Link
-                      to="/UserForgotPassword"
+                      to="/adminForgotPassword"
                       style={{ textDecoration: "none" }}
                     >
                       Forgot Password?
@@ -111,9 +110,9 @@ const UserSignin = () => {
             </div>
           </div>
         </div>
-        <p class="credit">
-          Don't have an Account? <Link to="/userSignup">Signup</Link>
-        </p>
+        {/* <p class="credit">
+          Don't have an Account? <Link to="/adminSignup">Signup</Link>
+        </p> */}
       </div>
       <div>
         <Footer />
@@ -122,4 +121,4 @@ const UserSignin = () => {
   );
 };
 
-export default UserSignin;
+export default AdminSignin;

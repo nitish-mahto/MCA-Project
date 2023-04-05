@@ -100,7 +100,7 @@ const VendorSignin = () => {
 
                   <span>
                     <Link
-                      to="/forgotPassword"
+                      to="/VendorForgotPassword"
                       style={{ textDecoration: "none" }}
                     >
                       Forgot Password?

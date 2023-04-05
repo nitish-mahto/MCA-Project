@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../../Navbar/Navbar";
+import Footer from "../../Footer/Footer";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -27,7 +27,7 @@ const schema = yup
   })
   .required();
 
-const ResetPassword = () => {
+const UserResetPassword = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -40,12 +40,12 @@ const ResetPassword = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:8000/reset-password`, {
+      .post(`http://localhost:8000/user/reset-password`, {
         ...data,
       })
       .then((data) => {
         alert("Password Changed Successfully");
-        navigate("/");
+        navigate("/userSignin");
       })
       .catch((err) => {
         alert("Please Enter Valid OTP");
@@ -124,7 +124,7 @@ const ResetPassword = () => {
           </div>
         </div>
         <p class="credit">
-          <Link to="/forgotPassword" style={{ textDecoration: "none" }}>
+          <Link to="/UserForgotPassword" style={{ textDecoration: "none" }}>
             Back
           </Link>
         </p>
@@ -136,4 +136,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default UserResetPassword;

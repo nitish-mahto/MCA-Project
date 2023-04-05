@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const tokenSchema = require("../models/tokenSchema");
-const category = require("../models/categories");
+// const category = require("../models/categories");
+const category = require("../models/category");
+const product = require("../models/product");
 const Joi = require("joi");
 const { generateJWT } = require("../models/token");
 const bcrypt = require("bcrypt");
@@ -168,35 +170,172 @@ async function Register(req, res) {
   }
 }
 
+async function forgotPassword(req, res) {
+  const schema = Joi.object().keys({
+    email: Joi.string().required().messages({
+      "string.empty": "email cannot be an empty field",
+      "any.required": "email is a required field",
+    }),
+    type: Joi.string().required().messages({
+      "string.empty": "type cannot be an empty field",
+      "any.required": "type is a required field",
+    }),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(403).json({ status: "error", message: error.message });
+  }
+
+  let user = await User.findOne({
+    $and: [{ email: req.body.email }, { type: req.body.type }],
+  })
+    .lean()
+    .exec();
+
+  if (!user) {
+    console.log("Email Id not found");
+    return res
+      .status(400)
+      .send({ status: "error", message: "Email Id not found" });
+  }
+
+  try {
+    var OTP = Math.round(Math.random() * (9999 - 1000) + 1000);
+
+    var data = new tokenSchema({
+      user_id: user._id,
+      token: OTP,
+    });
+
+    await data.save();
+  } catch (error) {
+    res.send({ status: "error", message: data });
+  }
+
+  user = await User.findOne({ _id: user._id })
+    .select({ first_name: 1, last_name: 1 })
+    .lean()
+    .exec();
+
+  return res.status(200).send({
+    status: "success",
+    message: "OTP Send Successfully",
+    data: user,
+  });
+}
+
+async function resetPassword(req, res) {
+  const token = await tokenSchema
+    .findOne({
+      token: req.body.token,
+    })
+    .lean()
+    .exec();
+
+  if (!token) {
+    return res
+      .status(400)
+      .send({ status: "error", message: "Please Enter Valid OTP" });
+  }
+
+  // console.log(token);
+  let password = req.body.password;
+
+  const bcryptSalt = bcrypt.genSaltSync(10);
+  const passwordHash = await bcrypt.hash(password, bcryptSalt);
+
+  await User.updateOne(
+    { _id: token.user_id },
+    { $set: { password: passwordHash } }
+  );
+
+  let user = await User.findOne({ _id: token.user_id })
+    .select({ first_name: 1, last_name: 1 })
+    .lean()
+    .exec();
+
+  await tokenSchema.deleteOne({ _id: token._id });
+
+  return res.status(200).send({
+    status: "success",
+    message: "Password Changed Successfully",
+    data: user,
+  });
+}
+
 async function imageUpload(req, res) {
   return res.status(200).send({
     message: "File Upload Success",
   });
 }
 
+// async function addCategory(req, res, next) {
+//   let categoryName = await category
+//     .findOne({ name: req.body.name })
+//     .lean()
+//     .exec();
+
+//   const isMatch = await compare(parent, categoryName.parent);
+
+//   let categoryParentName = await category
+//     .findOne({ parent: req.body.parent })
+//     .lean()
+//     .exec();
+
+//   if (categoryParentName) {
+//     return res.status(403).send({
+//       status: "error",
+//       message: "Category already exists in Parent Category",
+//     });
+//   }
+
+//   let categoryData = {
+//     name: req.body.name,
+//     parent: req.body.parent,
+//     description: req.body.description,
+//   };
+
+//   try {
+//     let newCategory = new category(categoryData);
+//     await newCategory.save();
+
+//     newCategory = await category
+//       .findOne({ _id: newCategory.id })
+//       .select({
+//         name: 1,
+//         parent: 1,
+//         description: 1,
+//       })
+//       .lean()
+//       .exec();
+
+//     return res.status(200).send({
+//       status: "success",
+//       message: "Category Added Successfully",
+//       data: newCategory,
+//     });
+//   } catch (error) {
+//     return res.status(403).send({
+//       status: "error",
+//       message: error.message,
+//     });
+//   }
+// }
+
 async function addCategory(req, res, next) {
-  let categoryName = await category
-    .findOne({ name: req.body.name })
-    .lean()
-    .exec();
+  let categoryName = await cat.findOne({ name: req.body.name }).lean().exec();
 
-  const isMatch = await compare(parent, categoryName.parent);
-
-  let categoryParentName = await category
-    .findOne({ parent: req.body.parent })
-    .lean()
-    .exec();
-
-  if (categoryParentName) {
+  if (categoryName) {
     return res.status(403).send({
       status: "error",
-      message: "Category already exists in Parent Category",
+      message: "Category already exists",
     });
   }
 
   let categoryData = {
     name: req.body.name,
-    parent: req.body.parent,
     description: req.body.description,
   };
 
@@ -208,7 +347,6 @@ async function addCategory(req, res, next) {
       .findOne({ _id: newCategory.id })
       .select({
         name: 1,
-        parent: 1,
         description: 1,
       })
       .lean()
@@ -227,10 +365,62 @@ async function addCategory(req, res, next) {
   }
 }
 
+async function addProduct(req, res, next) {
+  let productName = await product
+    .findOne({
+      $and: [{ name: req.body.name }, { categoryId: req.body.categoryId }],
+    })
+    .lean()
+    .exec();
+
+  if (productName) {
+    return res.status(403).send({
+      status: "error",
+      message: "Category already exists",
+    });
+  }
+
+  let productData = {
+    name: req.body.name,
+    description: req.body.description,
+    productImage: req.body.filename,
+    price: req.body.price,
+    quantity: req.body.quantity,
+    categoryId: req.body.categoryId,
+  };
+
+  try {
+    let newProduct = new product(productData);
+    await newProduct.save();
+
+    // newProduct = await product
+    //   .findOne({ _id: newProduct.id })
+    //   .select({
+    //     name: 1,
+    //     description: 1,
+    //   })
+    //   .lean()
+    //   .exec();
+
+    return res.status(200).send({
+      status: "success",
+      message: "Category Added Successfully",
+      data: newProduct,
+    });
+  } catch (error) {
+    return res.status(403).send({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
 module.exports = {
   test,
   login,
   Register,
+  forgotPassword,
+  resetPassword,
   imageUpload,
   addCategory,
+  addProduct,
 };

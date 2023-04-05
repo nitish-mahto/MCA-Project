@@ -6,21 +6,7 @@ import "./Navbar.css";
 const Navbar = () => {
   let navigate = useNavigate();
   const [User, SetUser] = useState([]);
-  // const [token, setToken] = useState(localStorage.getItem("token"));
   const token = localStorage.getItem("token");
-
-  // axios
-  //   .get("http://localhost:8000/admin/login-data", {
-  //     headers: {
-  //       Authorization: token,
-  //     },
-  //   })
-  //   .then((result) => {
-  //     SetUser(result.data.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log("Error: " + err);
-  //   });
 
   useEffect(() => {
     axios
@@ -48,11 +34,14 @@ const Navbar = () => {
       <div className="header">
         <div className="logo">
           <Link to="/#">
-            {/* <img src="https://www.tutorialrepublic.com/lib/images/logo.svg" alt="..."/> */}
             <img
-              src="https://www.techreale.com/assets/images/logos/1.png"
+              src="https://www.tutorialrepublic.com/lib/images/logo.svg"
               alt="..."
             />
+            {/* <img
+              src="https://www.techreale.com/assets/images/logos/1.png"
+              alt="..."
+            /> */}
           </Link>
         </div>
         <div className="search">
@@ -63,7 +52,7 @@ const Navbar = () => {
         <div className="icons">
           {token ? (
             <>
-              <Link to="/signin" className="fa fa-user-circle">
+              <Link to="/#" className="fa fa-user-circle">
                 &nbsp;&nbsp;
                 {User.first_name}
               </Link>
@@ -94,6 +83,7 @@ const Navbar = () => {
                   <ul
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
+                    backgroundColor="green"
                   >
                     <li>
                       <Link class="dropdown-item" to="/userSignin">
@@ -106,7 +96,6 @@ const Navbar = () => {
                       </Link>
                     </li>
                   </ul>
-
                   <Link to="/#" className="fa fa-shopping-cart">
                     &nbsp;&nbsp;Cart
                   </Link>

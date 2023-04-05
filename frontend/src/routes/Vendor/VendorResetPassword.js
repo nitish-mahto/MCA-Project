@@ -27,7 +27,7 @@ const schema = yup
   })
   .required();
 
-const ResetPassword = () => {
+const VendorResetPassword = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -40,12 +40,12 @@ const ResetPassword = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:8000/user/reset-password`, {
+      .post(`http://localhost:8000/vendor/reset-password`, {
         ...data,
       })
       .then((data) => {
         alert("Password Changed Successfully");
-        navigate("/userSignin");
+        navigate("/vendorSignin");
       })
       .catch((err) => {
         alert("Please Enter Valid OTP");
@@ -124,7 +124,7 @@ const ResetPassword = () => {
           </div>
         </div>
         <p class="credit">
-          <Link to="/forgotPassword" style={{ textDecoration: "none" }}>
+          <Link to="/VendorForgotPassword" style={{ textDecoration: "none" }}>
             Back
           </Link>
         </p>
@@ -136,4 +136,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default VendorResetPassword;

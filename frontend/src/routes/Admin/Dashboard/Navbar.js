@@ -42,7 +42,7 @@ const Navbar = () => {
 
             <li>
               <Link to="/adminProfile">
-                <i className="fa fa-dashboard"></i>
+              <i class="fa fa-product-hunt"></i>
                 &nbsp;Products
               </Link>
             </li>

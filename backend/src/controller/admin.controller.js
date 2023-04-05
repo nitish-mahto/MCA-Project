@@ -55,6 +55,97 @@ async function login(req, res) {
   }
 }
 
+async function forgotPassword(req, res) {
+  const schema = Joi.object().keys({
+    email: Joi.string().required().messages({
+      "string.empty": "email cannot be an empty field",
+      "any.required": "email is a required field",
+    }),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(403).json({ status: "error", message: error.message });
+  }
+
+  let admin = await Admin.findOne({
+    email: req.body.email,
+  })
+    .lean()
+    .exec();
+
+  if (!admin) {
+    console.log("Email Id not found");
+    return res
+      .status(400)
+      .send({ status: "error", message: "Email Id not found" });
+  }
+
+  try {
+    var OTP = Math.round(Math.random() * (9999 - 1000) + 1000);
+
+    var data = new tokenSchema({
+      user_id: admin._id,
+      token: OTP,
+    });
+
+    await data.save();
+  } catch (error) {
+    res.send({ status: "error", message: data });
+  }
+
+  admin = await Admin.findOne({ _id: admin._id })
+    .select({ username: 1, email: 1 })
+    .lean()
+    .exec();
+
+  return res.status(200).send({
+    status: "success",
+    message: "OTP Send Successfully",
+    data: admin,
+  });
+}
+
+async function resetPassword(req, res) {
+  const token = await tokenSchema
+    .findOne({
+      token: req.body.token,
+    })
+    .lean()
+    .exec();
+
+  if (!token) {
+    return res
+      .status(400)
+      .send({ status: "error", message: "Please Enter Valid OTP" });
+  }
+
+  // console.log(token);
+  let password = req.body.password;
+
+  const bcryptSalt = bcrypt.genSaltSync(10);
+  const passwordHash = await bcrypt.hash(password, bcryptSalt);
+
+  await Admin.updateOne(
+    { _id: token.user_id },
+    { $set: { password: passwordHash } }
+  );
+
+  let admin = await Admin.findOne({ _id: token.user_id })
+    .select({ username: 1, email: 1 })
+    .lean()
+    .exec();
+
+  await tokenSchema.deleteOne({ _id: token._id });
+
+  return res.status(200).send({
+    status: "success",
+    message: "Password Changed Successfully",
+    data: admin,
+  });
+}
+
 async function viewUserData(req, res) {
   let user = await User.find({ type: "user" }).lean().exec();
 
@@ -110,11 +201,47 @@ async function viewVendorData(req, res) {
   });
 }
 
+async function totalUsers(req, res) {
+  let user = await User.find({ type: "user" }).count().lean().exec();
+
+  if (!user) {
+    return res.status(404).send({
+      status: "error",
+      message: "No Data Found",
+    });
+  }
+
+  return res.status(200).send({
+    status: "success",
+    total_users: user,
+  });
+}
+
+async function totalVendors(req, res) {
+  let vendor = await User.find({ type: "vendor" }).count().lean().exec();
+
+  if (!vendor) {
+    return res.status(404).send({
+      status: "error",
+      message: "No Data Found",
+    });
+  }
+
+  return res.status(200).send({
+    status: "success",
+    total_vendors: vendor,
+  });
+}
+
 module.exports = {
-  login,
   test,
+  login,
+  forgotPassword,
+  resetPassword,
   viewUserData,
   viewDetails,
   deleteData,
   viewVendorData,
+  totalUsers,
+  totalVendors,
 };

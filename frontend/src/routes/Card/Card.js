@@ -7,15 +7,11 @@ function ProductCard(props) {
     <div className="dress-card" onClick={(e) => props.onClick(e, props.i)}>
       <div className="dress-card-head">
         <img className="dress-card-img-top" src={props.imagesrc} alt="" />
-        <div className="surprise-bubble">
-          <span className="dress-card-heart">
-            <i className="fas fa-heart"></i>
-          </span>
-          <Link to="/#">
-            {" "}
-            <span>More</span>
-          </Link>
-        </div>
+
+        <Link to="/#">
+          {" "}
+          <span>More</span>
+        </Link>
       </div>
     </div>
   );
@@ -29,7 +25,6 @@ const Card = () => {
 
   return (
     <>
-     
       <div className="container">
         <div className="row">
           {[
@@ -45,8 +40,6 @@ const Card = () => {
           ))}
         </div>
       </div>
-
-      
     </>
   );
 };

@@ -17,7 +17,7 @@ const schema = yup
   })
   .required();
 
-const ForgotPassword = () => {
+const VendorForgotPassword = () => {
   let navigate = useNavigate();
   const {
     register,
@@ -30,12 +30,14 @@ const ForgotPassword = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:8000/user/forgot-password`, {
-        ...data,
+      .post(`http://localhost:8000/vendor/forgot-password`, {
+        // ...data,
+        email: data.email,
+        type: "vendor",
       })
       .then((data) => {
         alert("OTP Send Successfully");
-        navigate("/resetPassword");
+        navigate("/VendorResetPassword");
       })
       .catch((err) => {
         console.log(err);
@@ -83,7 +85,7 @@ const ForgotPassword = () => {
           </div>
 
           <p class="credit">
-            <Link to="/signin" style={{ textDecoration: "none" }}>
+            <Link to="/VendorSignin" style={{ textDecoration: "none" }}>
               Back
             </Link>
           </p>
@@ -94,4 +96,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default VendorForgotPassword;

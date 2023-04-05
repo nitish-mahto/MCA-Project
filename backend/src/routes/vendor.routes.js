@@ -60,12 +60,14 @@ const upload = multer({ storage: storage });
 router.get("/test", vendorController.test);
 router.post("/login", vendorController.login);
 router.post("/register", vendorController.Register);
+router.post("/forgot-password", vendorController.forgotPassword);
+router.post("/reset-password", vendorController.resetPassword);
 router.post("/addCategory", vendorController.addCategory);
+router.post("/addProduct", vendorController.addProduct);
 router.post(
   "/imageUpload",
   upload.single("image"),
   vendorController.imageUpload
 );
-
 
 module.exports = router;

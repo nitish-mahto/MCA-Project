@@ -6,12 +6,9 @@ import Home from "./components/Home";
 import Products from "./components/Products";
 import Footer from "./routes/Footer/Footer";
 import Card from "./routes/Card/Card";
-import ResetPassword from "./routes/Signin/ResetPassword";
 import ContactUs from "./routes/ContactUs/ContactUs";
 import AboutUs from "./routes/AboutUs/AboutUs";
 import Error from "./routes/ErrorPage/Error";
-import ForgotPassword from "./routes/Signin/ForgotPassword";
-import Users from "./routes/Admin/UserData/Users";
 import ViewUserData from "./routes/Admin/UserData/ViewUserData";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
 import ViewUserDetails from "./routes/Admin/UserData/ViewUserDetails";
@@ -23,6 +20,13 @@ import UserSignin from "./routes/Signin/UserSignin";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.js";
 import AdminProfile from "./routes/Admin/Dashboard/AdminProfile";
 import ViewVendorData from "./routes/Admin/UserData/ViewVendorData";
+import AdminSignin from "./routes/Admin/Signin/AdminSignin";
+import VendorResetPassword from "./routes/Vendor/VendorResetPassword";
+import VendorForgotPassword from "./routes/Vendor/VendorForgotPassword";
+import AdminResetPassword from "./routes/Admin/Signin/AdminResetPassword";
+import AdminForgotPassword from "./routes/Admin/Signin/AdminForgotPassword";
+import UserResetPassword from "./routes/User/Signin/UserResetPassword";
+import UserForgotPassword from "./routes/User/Signin/UserForgotPassword";
 
 const App = () => {
   return (
@@ -34,21 +38,44 @@ const App = () => {
           <Route path="/card" element={<Card />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/footer" element={<Footer />} />
+
+          {/* User */}
           <Route path="/userSignin" element={<UserSignin />} />
           <Route path="/userSignup" element={<UserSignup />} />
+          <Route path="/userResetPassword" element={<UserResetPassword />} />
+          <Route path="/userForgotPassword" element={<UserForgotPassword />} />
+
+          {/* Vendors */}
           <Route path="/vendorSignin" element={<VendorSignin />} />
           <Route path="/vendorSignup" element={<VendorSignup />} />
-          <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/footer" element={<Footer />} />
+          <Route
+            path="/vendorResetPassword"
+            element={<VendorResetPassword />}
+          />
+          <Route
+            path="/vendorForgotPassword"
+            element={<VendorForgotPassword />}
+          />
+          <Route path="/changeEmail" element={<ChangeEmail />} />
+
+          {/* Admin */}
+          <Route path="/adminSignin" element={<AdminSignin />} />
+          <Route path="/adminResetPassword" element={<AdminResetPassword />} />
+          <Route
+            path="/adminForgotPassword"
+            element={<AdminForgotPassword />}
+          />
           <Route path="/viewUserData" element={<ViewUserData />} />
           <Route path="/viewVendorData" element={<ViewVendorData />} />
           <Route path="/viewUserDetails/:id" element={<ViewUserDetails />} />
-          <Route path="/viewVendorDetails/:id" element={<ViewVendorDetails />} />
-          <Route path="/userData" element={<Users />} />
-          <Route path="/changeEmail" element={<ChangeEmail />} />
+          <Route
+            path="/viewVendorDetails/:id"
+            element={<ViewVendorDetails />}
+          />
           <Route path="/adminDashboard" element={<Dashboard />} />
           <Route path="/adminProfile" element={<AdminProfile />} />
+
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
