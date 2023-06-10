@@ -38,7 +38,7 @@ const UserSignin = () => {
         console.log("Value : " + data);
         alert("Login successful");
         localStorage.setItem("token", result.data.token);
-        navigate("/");
+        navigate("/userDashboard");
       })
       .catch((err) => {
         console.log(err);

@@ -15,7 +15,7 @@ const Navbar = () => {
         <div class="sidebar">
           <div style={{ color: "gray", fontSize: "22px", marginLeft: "20px" }}>
             <i className="fa fa-user"></i>
-            &nbsp;Admin
+            &nbsp;Users
           </div>
           <hr />
           <ul>
@@ -27,22 +27,8 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Link to="/viewUserData">
-                <i className="fa fa-users"></i>
-                &nbsp;Customers
-              </Link>
-            </li>
-
-            <li>
-              <Link to="/viewVendorData">
-                <i className="fa fa-users"></i>
-                &nbsp;Vendors
-              </Link>
-            </li>
-
-            <li>
               <Link to="/adminProfile">
-                <i class="fa fa-product-hunt"></i>
+              <i class="fa fa-product-hunt"></i>
                 &nbsp;Products
               </Link>
             </li>

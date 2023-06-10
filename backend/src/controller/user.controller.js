@@ -61,6 +61,7 @@ async function login(req, res) {
       .select({
         first_name: 1,
         last_name: 1,
+        
       })
       .lean()
       .exec();

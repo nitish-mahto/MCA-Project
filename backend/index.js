@@ -15,6 +15,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const { verify } = require("jsonwebtoken");
 
 // connection(DATABASE_URL);
 
@@ -83,3 +84,4 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+

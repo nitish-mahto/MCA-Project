@@ -325,7 +325,7 @@ async function imageUpload(req, res) {
 // }
 
 async function addCategory(req, res, next) {
-  let categoryName = await cat.findOne({ name: req.body.name }).lean().exec();
+  let categoryName = await category.findOne({ name: req.body.name }).lean().exec();
 
   if (categoryName) {
     return res.status(403).send({
@@ -376,7 +376,7 @@ async function addProduct(req, res, next) {
   if (productName) {
     return res.status(403).send({
       status: "error",
-      message: "Category already exists",
+      message: "Product already exists",
     });
   }
 

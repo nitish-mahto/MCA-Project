@@ -9,24 +9,33 @@ import Card from "./routes/Card/Card";
 import ContactUs from "./routes/ContactUs/ContactUs";
 import AboutUs from "./routes/AboutUs/AboutUs";
 import Error from "./routes/ErrorPage/Error";
-import ViewUserData from "./routes/Admin/UserData/ViewUserData";
+
+// User
+import UserSignin from "./routes/Signin/UserSignin";
+import UserSignup from "./routes/Signup/UserSignup";
+import UserForgotPassword from "./routes/User/Signin/UserForgotPassword";
+import UserResetPassword from "./routes/User/Signin/UserResetPassword";
 import ChangeEmail from "./routes/Signin/ChangeEmail";
+
+// Vendor
+import VendorSignin from "./routes/Vendor/VendorSignin";
+import VendorSignup from "./routes/Vendor/VendorSignup";
+import VendorResetPassword from "./routes/Vendor/VendorResetPassword";
+import VendorForgotPassword from "./routes/Vendor/VendorForgotPassword";
+
+// Admin
+import ViewUserData from "./routes/Admin/UserData/ViewUserData";
 import ViewUserDetails from "./routes/Admin/UserData/ViewUserDetails";
 import ViewVendorDetails from "./routes/Admin/UserData/ViewVendorDetails";
-import VendorSignup from "./routes/Vendor/VendorSignup";
-import UserSignup from "./routes/Signup/UserSignup";
-import VendorSignin from "./routes/Vendor/VendorSignin";
-import UserSignin from "./routes/Signin/UserSignin";
 import Dashboard from "./routes/Admin/Dashboard/Dashboard.js";
 import AdminProfile from "./routes/Admin/Dashboard/AdminProfile";
 import ViewVendorData from "./routes/Admin/UserData/ViewVendorData";
 import AdminSignin from "./routes/Admin/Signin/AdminSignin";
-import VendorResetPassword from "./routes/Vendor/VendorResetPassword";
-import VendorForgotPassword from "./routes/Vendor/VendorForgotPassword";
 import AdminResetPassword from "./routes/Admin/Signin/AdminResetPassword";
 import AdminForgotPassword from "./routes/Admin/Signin/AdminForgotPassword";
-import UserResetPassword from "./routes/User/Signin/UserResetPassword";
-import UserForgotPassword from "./routes/User/Signin/UserForgotPassword";
+import UserDashboard from "./routes/User/Dashboard/UserDashboard";
+import ChangeAddress from "./routes/User/Dashboard/ChangeAddress";
+// import Cart from "./routes/User/Cart/Cart";
 
 const App = () => {
   return (
@@ -45,6 +54,10 @@ const App = () => {
           <Route path="/userSignup" element={<UserSignup />} />
           <Route path="/userResetPassword" element={<UserResetPassword />} />
           <Route path="/userForgotPassword" element={<UserForgotPassword />} />
+          <Route path="/userDashboard" element={<UserDashboard />} />
+          <Route path="/changeAddresses" element={<ChangeAddress />} />
+
+          {/* <Route path="/cart" element={<Cart />} /> */}
 
           {/* Vendors */}
           <Route path="/vendorSignin" element={<VendorSignin />} />
@@ -75,7 +88,6 @@ const App = () => {
           />
           <Route path="/adminDashboard" element={<Dashboard />} />
           <Route path="/adminProfile" element={<AdminProfile />} />
-
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
